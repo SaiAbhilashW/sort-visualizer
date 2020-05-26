@@ -1,11 +1,10 @@
-import React, {useState, Component} from 'react';
-import { Paper, Button } from '@material-ui/core';
-// import { makeStyles } from '@material-ui/core/styles';
+import React, { Component} from 'react';
+import { Paper } from '@material-ui/core';
+import ButtonGroupTemplate from './ButtonGroupTemplate';
 import { withStyles } from '@material-ui/core/styles';
 import ArrayComponentList from './ArrayComponentList'; 
-import logic from '../algorithms/logic.js'; 
-import Context from '../contexts/AppContext';
-
+import generateNewArray from '../logic/generateNewArray'; 
+import bubbleSort from '../logic/bubbleSort';
 
 const useStyles = (theme) => ({
   chart: {
@@ -18,58 +17,66 @@ const useStyles = (theme) => ({
       minWidth: "500px",
     },
   },
-  buttonpad: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    '& > *': {
-      margin: theme.spacing(2),
-      width: theme.spacing(170),
-      height: theme.spacing(20),
-    },
-  },
-  buttons: {
-    margin: theme.spacing(1),
+  bar: {
+    backgroundColor: "pink",
+    border: "1px solid grey",
+    display: "inline-block",
+    width: "8px",
   }
 });
 
 class SortTemplate extends Component{
-  
-  state = {arraySize: "small"};
-  static contextType = Context;
 
-  setArraySize = (size) => {
-    this.setState({arraySize : size});
+  constructor(props) {
+    super(props)
+    this.state = {globalArray: []};
   }
-  
-  toggleArraySize = () => {
-    if(this.state.arraySize === "small") {
-      this.setArraySize("large")
+
+  generateNewArray = () => {
+    let arrayList = document.getElementsByClassName("SortTemplate-bar-96");
+    if(arrayList[0] !== undefined){
+      console.log(arrayList[0].style);
+      for(let index = 0; index < arrayList.length; index++){
+        arrayList[index].style.backgroundColor = "pink";
+      }
     }
-    else if(this.state.arraySize === "large") this.setArraySize("small");
+    this.setState({globalArray: generateNewArray()});
+  }
+
+  bubbleSortFn = () => {
+    console.log('in bubble sort');
+    let sortedArray = bubbleSort(this.state.globalArray);
+    console.log(sortedArray);
+    // this.setState({globalArray:sortedArray});
+    console.log("global array");
+    console.log(this.state.globalArray);
+  }
+
+  buttonFunctions = {
+    generateNewArray: this.generateNewArray,
+    bubbleSort: this.bubbleSortFn,
+  }
+
+  componentDidMount(){
+    this.generateNewArray();
   }
   render(){
     const { classes } = this.props;
+    // console.log(this.state.globalArray);
+    let arrayList = this.state.globalArray.map((value,index) => {
+      let barHeight = (value*3).toString().concat("px");
+      return <div className={classes.bar} style={{height:barHeight,backgroundColor:"pink"}}></div>
+    });
     return (
       <div>
         <div className={classes.chart}>
         <Paper elevation={3} >
-          <ArrayComponentList arraySize={this.state.arraySize} selectedForComparison={[38,57]}/>
+          <div style={{margin:"20px"}}>
+          {arrayList}
+          </div>{/* <ArrayComponentList arraySize={this.state.arraySize} selectedForComparison={[38,57]}/> */}
         </Paper>
         </div>
-        <div className={classes.buttonpad}>
-        <Paper elevation={3}>
-          <Button variant="contained" color="secondary" className={classes.buttons}>Merge Sort</Button>
-          <Button variant="contained" color="secondary" className={classes.buttons}
-                  onClick={logic.bubbleSort(this.context)}
-          >Bubble Sort</Button>
-          <Button variant="contained" color="secondary" className={classes.buttons}>Quick Sort</Button>
-          <Button variant="contained" color="secondary" className={classes.buttons}>Heap Sort</Button>
-          <Button variant="contained" color="secondary" className={classes.buttons}>Randomize Array</Button>
-          <Button variant="contained" color="secondary" className={classes.buttons} 
-                  onClick={this.toggleArraySize}
-          >Change size</Button>
-        </Paper>
-        </div>
+        <ButtonGroupTemplate buttonFunctions = {this.buttonFunctions}/>
       </div>
   );
     }
