@@ -2,9 +2,10 @@ import React, { Component} from 'react';
 import { Paper } from '@material-ui/core';
 import ButtonGroupTemplate from './ButtonGroupTemplate';
 import { withStyles } from '@material-ui/core/styles';
-import ArrayComponentList from './ArrayComponentList'; 
 import generateNewArray from '../logic/generateNewArray'; 
 import bubbleSort from '../logic/bubbleSort';
+import quickSort from '../logic/quickSort';
+import mergeSort from '../logic/mergeSort';
 
 const useStyles = (theme) => ({
   chart: {
@@ -35,7 +36,6 @@ class SortTemplate extends Component{
   generateNewArray = () => {
     let arrayList = document.getElementsByClassName("SortTemplate-bar-96");
     if(arrayList[0] !== undefined){
-      console.log(arrayList[0].style);
       for(let index = 0; index < arrayList.length; index++){
         arrayList[index].style.backgroundColor = "pink";
       }
@@ -47,14 +47,33 @@ class SortTemplate extends Component{
     console.log('in bubble sort');
     let sortedArray = bubbleSort(this.state.globalArray);
     console.log(sortedArray);
-    // this.setState({globalArray:sortedArray});
     console.log("global array");
     console.log(this.state.globalArray);
+  }
+
+  quickSortFn = () => {
+    let globalArrayTemp = this.state.globalArray;
+    globalArrayTemp.push(100000);
+    // [10,20,59,16,80,33,100000];
+    // [10,20,30,40,50,60,10000];
+    // 
+    //let compareWith = globalArrayTemp.sort();
+     quickSort(globalArrayTemp, 0, globalArrayTemp.length-1, 1000);
+    console.log("outside quick sort");
+    console.log(globalArrayTemp);
+  }
+
+  mergeSortFn = async () => {
+    let globalArrayTemp = this.state.globalArray;
+    await mergeSort(globalArrayTemp,0,globalArrayTemp.length - 1);
+    console.log(globalArrayTemp);
   }
 
   buttonFunctions = {
     generateNewArray: this.generateNewArray,
     bubbleSort: this.bubbleSortFn,
+    quickSort: this.quickSortFn,
+    mergeSort: this.mergeSortFn,
   }
 
   componentDidMount(){
@@ -62,7 +81,6 @@ class SortTemplate extends Component{
   }
   render(){
     const { classes } = this.props;
-    // console.log(this.state.globalArray);
     let arrayList = this.state.globalArray.map((value,index) => {
       let barHeight = (value*3).toString().concat("px");
       return <div className={classes.bar} style={{height:barHeight,backgroundColor:"pink"}}></div>
@@ -73,13 +91,13 @@ class SortTemplate extends Component{
         <Paper elevation={3} >
           <div style={{margin:"20px"}}>
           {arrayList}
-          </div>{/* <ArrayComponentList arraySize={this.state.arraySize} selectedForComparison={[38,57]}/> */}
+          </div>
         </Paper>
         </div>
         <ButtonGroupTemplate buttonFunctions = {this.buttonFunctions}/>
       </div>
-  );
-    }
+    );
+  }
 }
 
 export default withStyles(useStyles)(SortTemplate);

@@ -34,11 +34,15 @@ class ButtonGroupTemplate extends Component{
         return (
         <div className={classes.buttonpad}>
         <Paper elevation={3}>
-          <Button variant="contained" color="secondary" className={classes.buttons}>Merge Sort</Button>
+          <Button variant="contained" color="secondary" className={classes.buttons}
+                  onClick={this.props.buttonFunctions.mergeSort}
+          >Merge Sort</Button>
           <Button variant="contained" color="secondary" className={classes.buttons}
                   onClick={this.props.buttonFunctions.bubbleSort}
           >Bubble Sort</Button>
-          <Button variant="contained" color="secondary" className={classes.buttons}>Quick Sort</Button>
+          <Button variant="contained" color="secondary" className={classes.buttons}
+                  onClick={this.props.buttonFunctions.quickSort}
+          >Quick Sort</Button>
           <Button variant="contained" color="secondary" className={classes.buttons}>Heap Sort</Button>
           <Button variant="contained" color="secondary" className={classes.buttons} onClick={this.props.buttonFunctions.generateNewArray}>Randomize Array</Button>
           <Button variant="contained" color="secondary" className={classes.buttons}>Change size</Button>

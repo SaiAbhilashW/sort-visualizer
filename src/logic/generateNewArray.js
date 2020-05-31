@@ -4,6 +4,7 @@ const generateNewArray = () => {
         newArray[index] = Math.floor((Math.random() * 100) + 1);
     }
     return newArray;
+    // [10,20,59,16,80,33];
 }
 
 export default generateNewArray;
