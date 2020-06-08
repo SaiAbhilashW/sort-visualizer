@@ -4,27 +4,18 @@ import { withStyles } from '@material-ui/core/styles';
 
 
 const useStyles = (theme) => ({
-    chart: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      '& > *': {
-        margin: theme.spacing(2),
-        width: theme.spacing(170),
-        height: theme.spacing(50),
-        minWidth: "500px",
-      },
-    },
     buttonpad: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      '& > *': {
+      display: 'inline-block',
+      // flexWrap: 'wrap',
+      // '& > *': {
         margin: theme.spacing(2),
-        width: theme.spacing(170),
-        height: theme.spacing(20),
-      },
+        width: "200px",
+        height: "400px",
+      // },
     },
     buttons: {
       margin: theme.spacing(1),
+      display: "block",
     }
   });
 
@@ -34,23 +25,28 @@ class ButtonGroupTemplate extends Component{
         return (
         <div className={classes.buttonpad}>
         <Paper elevation={3}>
-          <Button variant="contained" color="secondary" className={classes.buttons}
+          <Button  disabled = {this.props.buttonState} togglable={true} variant="contained" color="secondary" id="mergeSort" className={classes.buttons}
                   onClick={this.props.buttonFunctions.mergeSort}
           >Merge Sort</Button>
-          <Button variant="contained" color="secondary" className={classes.buttons}
+          <Button disabled = {this.props.buttonState} variant="contained" color="secondary" id="bubbleSort" className={classes.buttons}
                   onClick={this.props.buttonFunctions.bubbleSort}
           >Bubble Sort</Button>
-          <Button variant="contained" color="secondary" className={classes.buttons}
+          <Button disabled = {this.props.buttonState} variant="contained" color="secondary" id="quickSort" className={classes.buttons}
                   onClick={this.props.buttonFunctions.quickSort}
           >Quick Sort</Button>
-          <Button variant="contained" color="secondary" className={classes.buttons}>Heap Sort</Button>
-          <Button variant="contained" color="secondary" className={classes.buttons} onClick={this.props.buttonFunctions.generateNewArray}>Randomize Array</Button>
-          <Button variant="contained" color="secondary" className={classes.buttons}>Change size</Button>
+          <Button disabled = {this.props.buttonState} variant="contained" color="secondary" id="insertionSort" className={classes.buttons}
+                  onClick={this.props.buttonFunctions.insertionSort}
+          >Insertion Sort</Button>
+          <Button disabled = {this.props.buttonState} variant="contained" color="secondary" id="generateNewArray" className={classes.buttons} 
+                  onClick={this.props.buttonFunctions.randomizeArray}
+          >Randomize Array</Button>
+          <Button disabled = {this.props.buttonState} variant="contained" color="secondary" className={classes.buttons}
+                  onClick={this.props.buttonFunctions.changeArraySize}
+          >Change size</Button>
         </Paper>
         </div>
         );
     }
-    
 }
 
 export default withStyles(useStyles)(ButtonGroupTemplate);

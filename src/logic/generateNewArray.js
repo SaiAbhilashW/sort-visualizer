@@ -1,6 +1,7 @@
-const generateNewArray = () => {
+const generateNewArray = (arraySize) => {
     let newArray = [];
-    for(let index = 0; index < 100; index++){
+    let arrayLength = ((arraySize == undefined || arraySize == "large") ? 200 : 50);
+    for(let index = 0; index < arrayLength; index++){
         newArray[index] = Math.floor((Math.random() * 100) + 1);
     }
     return newArray;

@@ -1,22 +1,28 @@
-const mergeSort = async (globalArray, low, high) => {
+import sleep from './sleeper';
+
+const waitTime = {
+    "small": 50,
+    "large": 5,
+}
+
+const mergeSort = async (globalArray, low, high, arraySize) => {
     let mid = Math.floor((low + high)/2);
     if(low < high){
-        await mergeSort(globalArray, low, mid);
-        await mergeSort(globalArray, mid+1,high);
+        await mergeSort(globalArray, low, mid, arraySize);
+        await mergeSort(globalArray, mid+1,high,arraySize);
         for(let index = low; index <= high; index++){
             document.getElementsByClassName("SortTemplate-bar-96")[index].style.backgroundColor = "green";
         }
-        await merge(globalArray, low, mid, high);
+        await merge(globalArray, low, mid, high, arraySize);
     }
 }
 
-const merge = async (globalArray, low, mid, high) => {
+const merge = async (globalArray, low, mid, high, arraySize) => {
     let i = low;
     let j = mid+1;
     let tempArray = [];
     while(i <= mid && j <= high){
         if(globalArray[i] < globalArray[j]){
-        //    await updateArrayAndMakeUiChanges(globalArray, tempArray, i) 
         tempArray.push(globalArray[i]);
         i++;
         } else {
@@ -34,7 +40,7 @@ const merge = async (globalArray, low, mid, high) => {
 
     i = low;
     for(let k = 0; k < tempArray.length;k++){
-        await sleep(20);
+        await sleep(waitTime[arraySize]);
         document.getElementsByClassName("SortTemplate-bar-96")[i].style.height = (tempArray[k]*3).toString().concat("px");;
         globalArray[i] = tempArray[k];
         i++;
@@ -43,15 +49,6 @@ const merge = async (globalArray, low, mid, high) => {
         document.getElementsByClassName("SortTemplate-bar-96")[index].style.backgroundColor = "silver";
     }
 }
-
-const updateArrayAndMakeUiChanges =  async (globalArray, tempArray, index) => {
-    // await sleep(500);
-    // tempArray.push(globalArray[index]);
-    // document.getElementsByClassName("SortTemplate-bar-96")[index].style.height = tempHeight;
-}
-
-
-const sleep = interval => new Promise(resolve => setTimeout(resolve,interval));
 
 export default mergeSort;
 
