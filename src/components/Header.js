@@ -5,7 +5,7 @@ import { Toolbar, Typography, IconButton, AppBar } from '@material-ui/core';
 
 function Header() {
   return (
-    <AppBar position="static" color="primary">
+    <AppBar position="sticky" color="primary">
     <Toolbar>
         <IconButton edge="start" color="inherit" aria-label="menu">
         <AssessmentIcon />

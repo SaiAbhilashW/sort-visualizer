@@ -1,4 +1,5 @@
 import sleep from './sleeper';
+import BarClassName from '../constants/barClassName';
 
 const waitTime = {
     "small": 50,
@@ -18,10 +19,10 @@ const quickSort = async (globalArray, minIndex, maxIndex,arraySize) => {
 const partition =  async (globalArray, minIndex, maxIndex, arraySize) => {
     // console.log("hello");
     for(let itr = minIndex; itr < maxIndex;itr++){
-        document.getElementsByClassName("SortTemplate-bar-96")[itr].style.backgroundColor = "yellow";
+        document.getElementsByClassName(BarClassName)[itr].style.backgroundColor = "yellow";
     }
-    document.getElementsByClassName("SortTemplate-bar-96")[minIndex].style.backgroundColor = "blue";
-    document.getElementsByClassName("SortTemplate-bar-96")[maxIndex].style.backgroundColor = "blue";
+    document.getElementsByClassName(BarClassName)[minIndex].style.backgroundColor = "blue";
+    document.getElementsByClassName(BarClassName)[maxIndex].style.backgroundColor = "blue";
     let pivotIndex = minIndex;
     let pivotValue = globalArray[maxIndex];
     for(let i = minIndex; i < maxIndex;i++){
@@ -34,7 +35,7 @@ const partition =  async (globalArray, minIndex, maxIndex, arraySize) => {
     await swap(globalArray,pivotIndex,maxIndex,arraySize);  
     // document.getElementsByClassName("SortTemplate-bar-96")[pivotIndex].style.backgroundColor = "grey";
     for(let itr = minIndex; itr <= maxIndex;itr++){
-        document.getElementsByClassName("SortTemplate-bar-96")[itr].style.backgroundColor = "pink";
+        document.getElementsByClassName(BarClassName)[itr].style.backgroundColor = "pink";
     }
     return pivotIndex;
 }
@@ -46,9 +47,9 @@ async function swap(array, indexOne, indexTwo,arraySize){
     let temp = array[indexOne];
     array[indexOne] = array[indexTwo];
     array[indexTwo] = temp;
-    let tempHeight = document.getElementsByClassName("SortTemplate-bar-96")[indexOne].style.height;
-    document.getElementsByClassName("SortTemplate-bar-96")[indexOne].style.height = document.getElementsByClassName("SortTemplate-bar-96")[indexTwo].style.height;
-    document.getElementsByClassName("SortTemplate-bar-96")[indexTwo].style.height = tempHeight;
+    let tempHeight = document.getElementsByClassName(BarClassName)[indexOne].style.height;
+    document.getElementsByClassName(BarClassName)[indexOne].style.height = document.getElementsByClassName("SortTemplate-bar-96")[indexTwo].style.height;
+    document.getElementsByClassName(BarClassName)[indexTwo].style.height = tempHeight;
     // document.getElementsByClassName("SortTemplate-bar-96")[indexOne].style.backgroundColor = "pink";
     // document.getElementsByClassName("SortTemplate-bar-96")[indexTwo].style.backgroundColor = "pink";
 }

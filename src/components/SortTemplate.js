@@ -7,24 +7,25 @@ import bubbleSort from '../logic/bubbleSort';
 import quickSort from '../logic/quickSort';
 import mergeSort from '../logic/mergeSort';
 import insertionSort from '../logic/insertionSort';
+import BarClassName from '../constants/barClassName';
 
 const useStyles = (theme) => ({
   chart: {
-    display: 'inline-block',
+    display: 'block',
     // flexWrap: 'wrap',
     // '& > *': {
       margin: theme.spacing(2),
-      width: "870px",
+      width: theme.spacing(160),//
       height: theme.spacing(50),
-      minWidth: "500px",
+      // minWidth: "500px",
       // backgroundColor: "black",
     // },
   },
   bar: {
     backgroundColor: "pink",
-    border: "1px solid silver",
+    border: "0.1px solid silver",
     display: "inline-block",
-    width: "2px",
+    width: theme.spacing(0.1),//"2px",
   }
 });
 
@@ -45,7 +46,7 @@ class SortTemplate extends Component{
 
   generateNewArray = (arraySize) => {
     console.log("arraySize : " + arraySize);
-    let arrayList = document.getElementsByClassName("SortTemplate-bar-96");
+    let arrayList = document.getElementsByClassName(BarClassName);
     if(arrayList[0] !== undefined){
       for(let index = 0; index < arrayList.length; index++){
         arrayList[index].style.backgroundColor = "pink";
@@ -111,12 +112,12 @@ class SortTemplate extends Component{
       let barHeight = (value*3).toString().concat("px");
       let barWidth = this.state.arraySize == "small" ? "10px" : "2px";
       return <div className={classes.bar} style={{height:barHeight, width: barWidth, backgroundColor:"pink"}}></div>
-    });
+    }); 
     return (
-      <div style={{display:"inline-block"}}>
+      <div style={{display:"block"}}>
         <div className={classes.chart}>
-        <Paper elevation={3} >
-          <div style={{margin:"30px", display:"inline-block"}}>
+        <Paper elevation={3} style={{ align : "center"}}>
+          <div style={{margin:"30px", display:"inline-block", height: "350px"}}>
           {arrayList}
           </div>
           {/* <div style={{display:"inline-block", width: "400px", height: "400px", margin:"25px"}}>
@@ -135,9 +136,10 @@ class SortTemplate extends Component{
 
           {/* /</Paper> 
           </div> */}
+        <ButtonGroupTemplate buttonFunctions = {this.buttonFunctions} buttonState= {this.state.buttonState}/>
+
         </Paper>
         </div>
-        <ButtonGroupTemplate buttonFunctions = {this.buttonFunctions} buttonState= {this.state.buttonState}/>
       </div>
     );
   }

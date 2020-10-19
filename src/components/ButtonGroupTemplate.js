@@ -5,17 +5,17 @@ import { withStyles } from '@material-ui/core/styles';
 
 const useStyles = (theme) => ({
     buttonpad: {
-      display: 'inline-block',
+      display: 'block',
       // flexWrap: 'wrap',
       // '& > *': {
         margin: theme.spacing(2),
-        width: "200px",
-        height: "400px",
+        width: "1000px",
+        height:"350px",
       // },
     },
     buttons: {
       margin: theme.spacing(1),
-      display: "block",
+      display: "inline-block",
     }
   });
 
@@ -23,7 +23,7 @@ class ButtonGroupTemplate extends Component{
     render(props){
         const { classes} = this.props;
         return (
-        <div className={classes.buttonpad}>
+        <div className={classes.buttonpad} style={{height:"350px"}}>
         <Paper elevation={3}>
           <Button  disabled = {this.props.buttonState} togglable={true} variant="contained" color="secondary" id="mergeSort" className={classes.buttons}
                   onClick={this.props.buttonFunctions.mergeSort}

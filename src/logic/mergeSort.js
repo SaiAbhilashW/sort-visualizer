@@ -1,4 +1,5 @@
 import sleep from './sleeper';
+import BarClassName from '../constants/barClassName';
 
 const waitTime = {
     "small": 50,
@@ -11,7 +12,7 @@ const mergeSort = async (globalArray, low, high, arraySize) => {
         await mergeSort(globalArray, low, mid, arraySize);
         await mergeSort(globalArray, mid+1,high,arraySize);
         for(let index = low; index <= high; index++){
-            document.getElementsByClassName("SortTemplate-bar-96")[index].style.backgroundColor = "green";
+            document.getElementsByClassName(BarClassName)[index].style.backgroundColor = "green";
         }
         await merge(globalArray, low, mid, high, arraySize);
     }
@@ -41,12 +42,12 @@ const merge = async (globalArray, low, mid, high, arraySize) => {
     i = low;
     for(let k = 0; k < tempArray.length;k++){
         await sleep(waitTime[arraySize]);
-        document.getElementsByClassName("SortTemplate-bar-96")[i].style.height = (tempArray[k]*3).toString().concat("px");;
+        document.getElementsByClassName(BarClassName)[i].style.height = (tempArray[k]*3).toString().concat("px");;
         globalArray[i] = tempArray[k];
         i++;
     }
     for(let index = low; index <= high; index++){
-        document.getElementsByClassName("SortTemplate-bar-96")[index].style.backgroundColor = "silver";
+        document.getElementsByClassName(BarClassName)[index].style.backgroundColor = "silver";
     }
 }
 
